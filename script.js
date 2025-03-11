@@ -44,3 +44,12 @@ document.querySelector('#push').onclick = function () {
     });
   }
 };
+function toggleDone(e) {
+  if (!e.target.matches("input")) return; // skips if target is not an input.
+  // event delegation - chatGPT
+  const element = e.target;
+  const index = element.dataset.index;
+  tasks[index].done = !tasks[index].done;
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  populateList(tasks, list);
+}
