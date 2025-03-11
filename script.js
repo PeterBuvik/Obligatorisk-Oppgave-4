@@ -53,3 +53,7 @@ function toggleDone(e) {
   localStorage.setItem("tasks", JSON.stringify(tasks));
   populateList(tasks, list);
 }
+addTasks.addEventListener("submit", addTask);
+
+list.addEventListener("click", toggleDone);
+populateList(tasks, list);
