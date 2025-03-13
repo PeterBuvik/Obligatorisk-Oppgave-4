@@ -1,5 +1,3 @@
-import './styles.css';
-
 document.querySelector('#push').onclick = function() {
     const taskInput = document.querySelector('#newtask input');
 
