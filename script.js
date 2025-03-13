@@ -1,43 +1,55 @@
-const addTasks = document.querySelector(".add-tasks");
-      const list = document.querySelector(".tasks");
-      let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-      function addTask(event) {
-        event.preventDefault();
-        const text = this.querySelector("[name=task]").value; 
+// Create a "close" button and append it to each list item
+var myNodelist = document.getElementsByTagName("LI");
+var i;
+for (i = 0; i < myNodelist.length; i++) {
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  myNodelist[i].appendChild(span);
+}
 
-        const newTask = {
-          text,
-          done: false,
-        };
+// Click on a close button to hide the current list item
+var close = document.getElementsByClassName("close");
+var i;
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function() {
+    var div = this.parentElement;
+    div.style.display = "none";
+  }
+}
 
-        tasks.push(newTask);
-        populateList(tasks, list);
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-        this.reset();
-      }
-      function populateList(tasks = [], list) {
-        list.innerHTML = tasks
-          .map((task, i) => {
-            return `
-          <li>
-            <input type="checkbox" data-index=${i} id="task${i}"
-            ${task.done ? "checked" : ""}/>
-            <label for="task${i}">${task.text}</label>
-          </li>
-          `;
-          })
-          .join(""); 
-      }
-      function toggleDone(e) {
-        if (!e.target.matches("input")) return; // skips if target is not an input.
-        // event delegation - chatGPT
-        const element = e.target;
-        const index = element.dataset.index;
-        tasks[index].done = !tasks[index].done;
-        localStorage.setItem("tasks", JSON.stringify(tasks));
-        populateList(tasks, list);
-      }
-      addTasks.addEventListener("submit", addTask);
+// Add a "checked" symbol when clicking on a list item
+var list = document.querySelector('ul');
+list.addEventListener('click', function(ev) {
+  if (ev.target.tagName === 'LI') {
+    ev.target.classList.toggle('checked');
+  }
+}, false);
 
-list.addEventListener("click", toggleDone);
-populateList(tasks, list);
+// Create a new list item when clicking on the "Add" button
+function newElement() {
+  var li = document.createElement("li");
+  var inputValue = document.getElementById("myInput").value;
+  var t = document.createTextNode(inputValue);
+  li.appendChild(t);
+  if (inputValue === '') {
+    alert("You must write something!");
+  } else {
+    document.getElementById("myUL").appendChild(li);
+  }
+  document.getElementById("myInput").value = "";
+
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  li.appendChild(span);
+
+  for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.display = "none";
+    }
+  }
+}
