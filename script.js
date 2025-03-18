@@ -18,6 +18,12 @@ document.querySelector('#push').onclick = function() {
           button.onclick = function() {
               this.parentElement.remove();
           };
+      }); 
+const doneButtons = document.querySelectorAll('.done');
+      doneButtons.forEach(button => {
+          button.onclick = function() {
+              this.previousElementSibling.classList.toggle('completed');
+          };
       });
   }
 };

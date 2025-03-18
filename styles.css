@@ -40,3 +40,7 @@ article.task {
   justify-content: space-between;
   border-radius: 5px;
 }
+.completed {
+  text-decoration: line-through;
+  color: gray;
+}
